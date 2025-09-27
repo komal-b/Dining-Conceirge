@@ -82,7 +82,7 @@ $(document).ready(function () {
             }
           }
         } else {
-          insertResponseMessage('Oopsie, something went wrong. Please try again.');
+          insertResponseMessage('Oops, something went wrong. Please try again.');
         }
       })
       .catch((error) => {
