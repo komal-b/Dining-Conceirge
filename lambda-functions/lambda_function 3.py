@@ -79,6 +79,7 @@ def send_email(recipient, restaurant):
         print(f"Email sent to {recipient}")
     except Exception as e:
         print(f"Error sending email to {recipient}: {e}")
+        raise
 
 # Lambda handler
 def lambda_handler(event, context):
@@ -135,6 +136,7 @@ def lambda_handler(event, context):
             except Exception as ses_error:
                 # Allow SQS retry and eventual DLQ in case of failure
                 print(f"Failed to send email for requestId={msg['MessageId']}: {ses_error}")
+                raise
 
         except Exception as e:
             print(f"Error processing message: {e}")
