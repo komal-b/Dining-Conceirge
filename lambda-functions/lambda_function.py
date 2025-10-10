@@ -11,7 +11,7 @@ def lambda_handler(event, context):
     try:
         print("Event:", event)
 
-        # Parse body
+        # Parsing body
         body = event.get("body")
         if isinstance(body, str):
             body = json.loads(body)
@@ -28,12 +28,12 @@ def lambda_handler(event, context):
             botId=bot_id,
             botAliasId=bot_alias_id,
             localeId=locale_id,
-            sessionId="testuser",  # use a unique ID per user in production
+            sessionId="testuser",  
             text=user_input
         )
         print("Lex response:", response)
 
-        # Extract message text from Lex response
+        # Extracting message text from Lex response
         messages = []
         if "messages" in response:
             for msg in response["messages"]:

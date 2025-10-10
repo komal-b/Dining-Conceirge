@@ -4,18 +4,18 @@ import random
 import requests
 from requests_aws4auth import AWS4Auth
 
-# --- AWS Clients ---
+# AWS Clients
 sqs = boto3.client('sqs')
 dynamodb = boto3.resource('dynamodb')
 ses = boto3.client('ses')
 
-# --- Configurations ---
+# Configurations
 SQS_URL = "https://sqs.us-east-1.amazonaws.com/475705689657/DiningQueue"
 ES_HOST = "https://search-restaurants-rgucpr3whjjvho6cfxx442h7l4.aos.us-east-1.on.aws"
 TABLE_NAME = "yelp-restaurants"
 SENDER_EMAIL = "knb4003@nyu.edu"
 
-# --- AWS4Auth for Elasticsearch ---
+# AWS4Auth for Elasticsearch 
 session = boto3.session.Session()
 credentials = session.get_credentials()
 region = session.region_name or 'us-east-1'
@@ -27,7 +27,7 @@ awsauth = AWS4Auth(
     session_token=credentials.token
 )
 
-# --- Helper functions ---
+#  Helper functions
 def get_random_restaurant_from_es(cuisine):
     """Return a random restaurant ID matching the cuisine from Elasticsearch"""
     query = {"query": {"match": {"cuisine": cuisine}}}
@@ -80,7 +80,7 @@ def send_email(recipient, restaurant):
     except Exception as e:
         print(f"Error sending email to {recipient}: {e}")
 
-# --- Lambda handler ---
+# Lambda handler
 def lambda_handler(event, context):
     print("Lambda triggered by EventBridge")
 
@@ -133,7 +133,7 @@ def lambda_handler(event, context):
                 print(f"Message deleted from SQS")
 
             except Exception as ses_error:
-                # Don't delete message, allow SQS retry and eventual DLQ
+                # Allow SQS retry and eventual DLQ in case of failure
                 print(f"Failed to send email for requestId={msg['MessageId']}: {ses_error}")
 
         except Exception as e:
