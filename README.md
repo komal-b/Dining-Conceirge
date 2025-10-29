@@ -104,7 +104,7 @@ if (typeof data.body === "string") {
 **DynamoDB Setup:**
 ```
 Table: yelp-restaurants
-Partition Key: businessid (String)
+Partition Key: business_id (String)
 ```
 - Uploaded data using dynamo_db_insert.ipynb with:
 ```
@@ -162,3 +162,5 @@ An error occurred (InvalidParameterValue) when calling SendEmail: Missing final 
 ```
 
 ---
+
+YouTube Link: https://www.youtube.com/watch?v=mTWhx92ZbtA
